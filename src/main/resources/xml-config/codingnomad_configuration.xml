@@ -18,5 +18,11 @@
         <property name="name" value="OpenJDK"/>
         <property name="version" value="11"/>
     </bean>
+    <bean id="computer" class="platform.codingnomads.co.corespring.examples.application_context.xml.Computer">
+        <property name="make" value="Apple"/>
+        <property name="model" value="MacBook Pro"/>
+        <property name="processor" value="M1"/>
+        <property name="ram" value="16"/>
+    </bean>
 
 </beans>
