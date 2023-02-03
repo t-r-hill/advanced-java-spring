@@ -17,4 +17,10 @@ public class LaptopConfiguration {
     public OS os() {
         return new OS("ubuntu");
     }
+
+    @Bean
+    public Battery battery(){ return new Battery(20.0, 4.0, 220);}
+
+    @Bean
+    public Screen screen(){ return new Screen(true, 1080);}
 }
