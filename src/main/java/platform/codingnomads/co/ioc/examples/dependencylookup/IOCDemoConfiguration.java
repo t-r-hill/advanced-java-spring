@@ -12,6 +12,9 @@ public class IOCDemoConfiguration {
     }
 
     @Bean
+    public GreetingProvider hipProvider() { return new HipGreetingProvider(); }
+
+    @Bean
     public GreetingRenderer renderer() {
         GreetingRenderer renderer =
                 new StandardOutGreetingRenderer();
