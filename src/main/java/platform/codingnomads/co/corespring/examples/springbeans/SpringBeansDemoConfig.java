@@ -11,4 +11,9 @@ public class SpringBeansDemoConfig {
     public Address address() {
         return new Address("Main Street", 1500);
     }
+
+    @Bean
+    public Computer computer() {
+        return new Computer("Apple", "MacBook");
+    }
 }
