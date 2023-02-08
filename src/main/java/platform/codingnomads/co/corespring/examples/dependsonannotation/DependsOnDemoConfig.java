@@ -8,7 +8,7 @@ import org.springframework.context.annotation.DependsOn;
 public class DependsOnDemoConfig {
 
     @Bean
-    @DependsOn(value = "jdk")
+    @DependsOn(value = {"jdk", "coffee"})
     public SpringDeveloper springDeveloper() {
         return new SpringDeveloper();
     }
@@ -16,5 +16,10 @@ public class DependsOnDemoConfig {
     @Bean("jdk")
     public JDK jdk() {
         return new JDK();
+    }
+
+    @Bean("coffee")
+    public Coffee coffee() {
+        return new Coffee();
     }
 }

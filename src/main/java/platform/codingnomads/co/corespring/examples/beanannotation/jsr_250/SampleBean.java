@@ -19,4 +19,14 @@ public class SampleBean {
         System.out.println("time to @PreDestroy and head home..");
     }
 
+    @PreDestroy
+    public void start() {
+        System.out.println("Take your mark! Set! Go!");
+    }
+
+    @PostConstruct
+    public void stop() {
+        System.out.println("Time to go home");
+    }
+
 }

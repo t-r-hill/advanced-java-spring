@@ -5,14 +5,14 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("test")
-public class SpringDeveloper {
+@Profile("deploy")
+public class Chair {
 
-    @Value("${test.time}")
+    @Value("${deploy.time}")
     private Integer time;
 
-    public SpringDeveloper() {
-        System.out.println("SpringDeveloper is ready.");
+    public Chair(){
+        System.out.println("Chair is being sat on");
     }
 
     public Integer getTime(){

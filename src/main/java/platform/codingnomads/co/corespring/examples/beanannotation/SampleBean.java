@@ -17,4 +17,5 @@ public class SampleBean {
     public void doStuff() {
         System.out.println("doStuff() - bean is doing its thing");
     }
+
 }

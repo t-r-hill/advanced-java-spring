@@ -6,6 +6,9 @@ public class SpringDeveloper {
     @Autowired
     private JDK jdk;
 
+    @Autowired
+    private Coffee coffee;
+
     public SpringDeveloper() {
         System.out.println("SpringDeveloper is ready.");
     }

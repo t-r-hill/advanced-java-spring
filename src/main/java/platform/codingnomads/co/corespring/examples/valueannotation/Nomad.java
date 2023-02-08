@@ -12,6 +12,10 @@ public class Nomad {
     private String name;
 
     private Integer age;
+    @Value("${nomad.hasJob}")
+    private boolean hasJob;
+    @Value("${nomad.jobType}")
+    private String jobType;
 
     public Nomad(@Value("${nomad.name}") String name, @Value("${nomad.age}") Integer age) {
         this.name = name;
@@ -54,5 +58,9 @@ public class Nomad {
 
     public Map<String, String> getDatabaseValues() {
         return databaseValues;
+    }
+
+    public String getEmploymentStatus(){
+        return "This nomad has a job in ".concat(jobType).concat(": ") + hasJob;
     }
 }

@@ -7,7 +7,12 @@ import org.springframework.context.annotation.Configuration;
 public class BeanAnnotationConfig {
 
     @Bean(initMethod = "init", destroyMethod = "cleanup", name = "friendly_bean_name")
-    public SampleBean sampleBean() {
+    public SampleBean sampleBeanFriendly() {
+        return new SampleBean();
+    }
+
+    @Bean(initMethod = "init", destroyMethod = "cleanup", name = "hostile_bean_name")
+    public SampleBean sampleBeanHostile(){
         return new SampleBean();
     }
 }
