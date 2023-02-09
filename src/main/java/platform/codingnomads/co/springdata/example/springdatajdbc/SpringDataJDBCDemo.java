@@ -25,33 +25,33 @@ public class SpringDataJDBCDemo implements CommandLineRunner {
 
         try {
             //create employee table using the JdbcTemplate method "execute"
-            jdbcTemplate.execute("CREATE TABLE employees (id BIGINT AUTO_INCREMENT PRIMARY KEY," +
-                    "first_name VARCHAR(255) NOT NULL,last_name  VARCHAR(255) NOT NULL);");
+            jdbcTemplate.execute("CREATE TABLE tokens (id BIGINT AUTO_INCREMENT PRIMARY KEY," +
+                    "name VARCHAR(255) NOT NULL, symbol VARCHAR(255) NOT NULL, max_supply BIGINT NOT NULL);");
         } catch (Exception e) {
             //nothing
         }
 
         //create a list of first and last names
-        List<Object[]> splitUpNames = Stream.of("Java Ninja", "Spring Guru", "Java Guru", "Spring Ninja")
+        List<Object[]> tokens = Stream.of("Bitcoin BTC 21000000", "Nomad NMD 1000000", "NomadInu NINU 1000000000000")
                 .map(name -> name.split(" "))
                 .collect(Collectors.toList());
 
         //for each first & last name pair insert an Employee into the database
-        for (Object[] name : splitUpNames) {
-            jdbcTemplate.execute(String.format("INSERT INTO employees(first_name, last_name) VALUES ('%s','%s')", name[0], name[1]));
+        for (Object[] token : tokens) {
+            jdbcTemplate.execute(String.format("INSERT INTO tokens (name, symbol, max_supply) VALUES ('%s','%s', %s)", token[0], token[1], token[2]));
         }
 
         //query the database for Employees with first name Java
         jdbcTemplate.query(
-                        "SELECT id, first_name, last_name FROM employees WHERE first_name = 'Java'",
-                        (rs, rowNum) -> new Employee(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name"))
+                        "SELECT id, name, symbol, max_supply FROM tokens WHERE name LIKE 'Nomad%'",
+                        (rs, rowNum) -> new Token(rs.getLong("id"), rs.getString("name"), rs.getString("symbol"), rs.getLong("max_supply"))
                 )
                 //print each found employee to the console
-                .forEach(employee -> System.out.println(employee.toString()));
+                .forEach(token -> System.out.println(token.toString()));
 
         //truncate the table
-        jdbcTemplate.execute("TRUNCATE TABLE employees;");
+        jdbcTemplate.execute("TRUNCATE TABLE tokens;");
         //delete the table
-        jdbcTemplate.execute("DROP TABLE employees");
+        jdbcTemplate.execute("DROP TABLE tokens");
     }
 }
