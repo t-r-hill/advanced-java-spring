@@ -3,6 +3,7 @@ package platform.codingnomads.co.springdata.example.ddl.manytoone.bidirectional;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,4 +26,6 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments;
 
+    @OneToMany(mappedBy = "post")
+    private List<Reaction> reactions;
 }
