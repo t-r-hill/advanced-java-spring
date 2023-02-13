@@ -7,12 +7,15 @@ import platform.codingnomads.co.springdata.example.dml.commonproblems.models.Con
 import platform.codingnomads.co.springdata.example.dml.commonproblems.models.User;
 import platform.codingnomads.co.springdata.example.dml.commonproblems.repositories.UserRepo;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserService {
 
     @Autowired
     UserRepo userRepo;
 
+    @Transactional
     public void persistAFewUsers() {
 
         //set up an Address
@@ -53,6 +56,7 @@ public class UserService {
         userRepo.save(user);
     }
 
+    @Transactional
     public void querySomeData() {
 
         //find user by username

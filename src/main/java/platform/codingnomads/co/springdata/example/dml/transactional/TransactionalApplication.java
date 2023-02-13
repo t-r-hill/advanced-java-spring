@@ -23,8 +23,8 @@ public class TransactionalApplication implements CommandLineRunner {
 
         //@Transactional I
 
-        pointService.foo();
-//        pointService.doSomeWork();
+//        pointService.foo();
+        pointService.doSomeWork();
 
         //@Transactional II
 

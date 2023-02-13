@@ -16,7 +16,11 @@ public class LifecycleCallbackDemo {
     public CommandLineRunner runStuff(PrintEntityRepository printEntityRepository) {
         return (args) -> {
             // put your logic here
-
+            PrintEntity printEntity = new PrintEntity();
+            printEntityRepository.save(printEntity);
+            printEntityRepository.findAll();
+            printEntityRepository.save(printEntity);
+            printEntityRepository.deleteAll();
         };
     }
 }
