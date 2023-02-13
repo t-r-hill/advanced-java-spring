@@ -40,16 +40,49 @@ public class MyBatisDemoApplication {
             song2.setArtist_name("Gus Dapperton");
             song2.setSong_length(279);
 
+            Song song3 = Song.builder()
+                    .name("Shake it off")
+                    .album_name("1989")
+                    .artist_name("Taylor Swift")
+                    .song_length(196).build();
+
+            Song song4 = Song.builder()
+                    .name("Blank space")
+                    .artist_name("Taylor Swift")
+                    .album_name("1989")
+                    .song_length(200).build();
+
+            Song song5 = Song.builder()
+                    .name("Love story")
+                    .artist_name("Taylor Swift")
+                    .album_name("Fearless")
+                    .song_length(192).build();
+
             songMapper.insertNewSong(song1);
             songMapper.insertNewSong(song2);
+            songMapper.insertNewSong(song3);
+            songMapper.insertNewSong(song4);
+            songMapper.insertNewSong(song5);
 
-            Song song3 = songMapper.getSongById(1L);
+            Song song6 = songMapper.getSongById(1L);
 
             ArrayList<Song> longSongs = songMapper.getSongsWithLengthGreaterThan(250);
 
             longSongs.forEach(System.out::println);
 
-            System.out.println(song3.toString());
+            System.out.println(song6.toString());
+
+            songMapper.getSongByNameLike("Shake").forEach(System.out::println);
+
+            songMapper.getSongByLengthLessThan(200).forEach(System.out::println);
+
+            songMapper.deleteSongById(1L);
+
+            songMapper.deleteSongsByAlbumAndArtist("Taylor Swift", "1989");
+
+            songMapper.getSongsByArtist("Taylor Swift").forEach(System.out::println);
+
+
         };
     }
 }
