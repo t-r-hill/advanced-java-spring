@@ -23,12 +23,16 @@ public class JpaRepoDemo implements CommandLineRunner {
         SoftDrink fanta = SoftDrink.builder().name("Fanta").rating(10).build();
         SoftDrink coke = SoftDrink.builder().name("Coca-Cola").rating(4).build();
         SoftDrink drPepper = SoftDrink.builder().name("Dr. Pepper").rating(1).build();
+        SoftDrink bubbleTea = SoftDrink.builder().name("Bubble Tea").rating(10).build();
+        SoftDrink babyccino = SoftDrink.builder().name("Babyccino").rating(9).build();
+        SoftDrink grapefruitJuice = SoftDrink.builder().name("Grapefruit Juice").rating(2).build();
 
         //save single entity instance
         fanta = softDrinkRepo.save(fanta);
 
         //save multiple entity instances at a time
         List<SoftDrink> insertedSoftDrinks = softDrinkRepo.saveAll(List.of(coke, drPepper));
+        List<SoftDrink> moreInsertedSoftDrinks = softDrinkRepo.saveAllAndFlush(List.of(bubbleTea, babyccino, grapefruitJuice));
 
         //make sure all entities are actually saved to the database
         softDrinkRepo.flush();
@@ -39,9 +43,21 @@ public class JpaRepoDemo implements CommandLineRunner {
             softDrinkRepo.save(sd);
         }
 
+
         System.out.println("ALL SOFT DRINKS IN DESCENDING ORDER BASED ON ID");
         //get all soft drinks in ascending order and print toString() to the console
         softDrinkRepo.findAll(Sort.by(Sort.Direction.DESC, "id")).forEach(System.out::println);
+
+        System.out.println("Sorted by rating and then name");
+        softDrinkRepo.findAll(Sort.by(List.of(Sort.Order.desc("Rating"), Sort.Order.asc("Name"))));
+
+        System.out.println("Sorted by name with rating of 10");
+        softDrinkRepo.findAll(
+                Example.of(
+                        SoftDrink.builder().rating(10).build()
+                , ExampleMatcher.matchingAny()
+                )
+        ).forEach(System.out::println);
 
         //find all using an example
         System.out.println("FINDING ALL USING EXAMPLE");
@@ -69,5 +85,6 @@ public class JpaRepoDemo implements CommandLineRunner {
 
         //delete all 3 soft drinks in a batch
         softDrinkRepo.deleteAllInBatch();
+
     }
 }

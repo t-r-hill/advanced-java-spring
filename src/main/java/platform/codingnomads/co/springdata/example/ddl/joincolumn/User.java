@@ -3,6 +3,7 @@ package platform.codingnomads.co.springdata.example.ddl.joincolumn;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -18,5 +19,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    
+    @OneToMany
+    @JoinColumn(name = "user_id", nullable = false)
+    private List<Order> orders;
 }
