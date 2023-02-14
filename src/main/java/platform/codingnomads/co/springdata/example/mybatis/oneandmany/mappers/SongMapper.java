@@ -30,7 +30,7 @@ public interface SongMapper {
                             column = "album_id",
                             javaType = Album.class,
                             one = @One(
-                                    select = "platform.codingnomads.co.springdata.example.mybatis.oneandmany.mappers.AlbumMapper.getAlbumByIdWithoutSongs",
+                                    select = "platform.codingnomads.co.springdata.example.mybatis.oneandmany.mappers.AlbumMapper.getAlbumByIdWithoutSongsOrArtist",
                                     fetchType = FetchType.LAZY
                             )
                     )
@@ -41,7 +41,7 @@ public interface SongMapper {
     @Select("SELECT * " +
             "FROM mybatis.songs " +
             "WHERE name = #{param1};")
-    @ResultMap("songResultMap")
+    @Results(@Result(property = "songLength", column = "song_length"))
     ArrayList<Song> getSongsByName(String name);
 
 //    @Select("SELECT * " +

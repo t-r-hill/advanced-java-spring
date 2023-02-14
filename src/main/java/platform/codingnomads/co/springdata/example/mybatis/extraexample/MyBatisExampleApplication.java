@@ -8,6 +8,8 @@ import platform.codingnomads.co.springdata.example.mybatis.extraexample.mappers.
 import platform.codingnomads.co.springdata.example.mybatis.extraexample.mappers.ImageMapper;
 import platform.codingnomads.co.springdata.example.mybatis.extraexample.mappers.LessonMapper;
 import platform.codingnomads.co.springdata.example.mybatis.extraexample.mappers.SectionMapper;
+import platform.codingnomads.co.springdata.example.mybatis.extraexample.models.Chapter;
+import platform.codingnomads.co.springdata.example.mybatis.extraexample.models.Section;
 
 @SpringBootApplication
 public class MyBatisExampleApplication implements CommandLineRunner {
@@ -41,6 +43,11 @@ public class MyBatisExampleApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Section mySection = new Section();
+        mySection.setName("My section");
+        sectionMapper.insertNewSection(mySection);
 
+        Chapter myChapter = new Chapter();
+        myChapter.setName();
     }
 }

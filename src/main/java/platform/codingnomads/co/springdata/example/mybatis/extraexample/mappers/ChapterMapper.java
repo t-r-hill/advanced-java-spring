@@ -10,10 +10,11 @@ import java.util.List;
 @Mapper
 public interface ChapterMapper {
 
-    @Insert("INSERT INTO mybatis.chapters (name, section_id) VALUES (#{param1}, #{param2});")
-    void insertNewChapter(String name, Long sectionId);
+    @Insert("INSERT INTO mybatis.chapters (name, section_id) VALUES (#{name}, #{section.id});")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+    void insertNewChapter(Chapter chapter);
 
-    @Select("SELECT id, name FROM mybatis.chapters WHERE id = #{param1}")
+    @Select("SELECT * FROM mybatis.chapters WHERE id = #{param1}")
     @Results(
             @Result(
                     column = "id",

@@ -10,9 +10,10 @@ import java.util.List;
 public interface SectionMapper {
 
     @Insert("INSERT INTO mybatis.sections (name) VALUES (#{name});")
-    void insertNewSection(String name);
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    void insertNewSection(Section section);
 
-    @Select("SELECT id, name FROM mybatis.sections WHERE id = #{param1};")
+    @Select("SELECT * FROM mybatis.sections WHERE id = #{param1};")
     @Results(
             @Result(
                     property = "chapters",

@@ -36,49 +36,49 @@ public class OneAndManyApplication {
     public CommandLineRunner loadInitialData(SongMapper songMapper, ArtistMapper artistMapper, AlbumMapper albumMapper) {
         return (args) -> {
 
-            Artist artist1 = new Artist();
-            artist1.setName("Bon Iver");
-            artist1.setBio("Bon Iver is an American indie folk band founded " +
-                    "in 2006 by singer-songwriter Justin Vernon.");
-            artistMapper.insertNewArtist(artist1);
-
-            Album album1 = new Album();
-            album1.setName("Bon Iver Album");
-            album1.setArtist(artist1);
-            album1.setYear(2022L);
-            albumMapper.addAlbum(album1);
-
-            Song song1 = new Song();
-            song1.setName("Minnesota, WI");
-            song1.setAlbum(album1);
-            song1.setSongLength(232);
-            album1.setSongs(new ArrayList<>(Collections.singletonList(song1)));
-
-            Artist artist2 = new Artist();
-            artist2.setName("Gus Dapperton");
-            artist2.setBio("Brendan Patrick Rice, better known by his stage name Gus Dapperton, " +
-                    "is an American singer and songwriter from Warwick, New York.");
-            artistMapper.insertNewArtist(artist2);
-
-            Album album2 = new Album();
-            album2.setName("Gus Dapperton Album");
-            album2.setArtist(artist2);
-            album2.setYear(2020L);
-            albumMapper.addAlbum(album2);
-
-            Song song2 = new Song();
-            song2.setName("Post Humorous");
-            song2.setAlbum(album2);
-            song2.setSongLength(279);
-            album2.setSongs(new ArrayList<>(Collections.singletonList(song2)));
-
-            songMapper.insertNewSong(song1);
-            songMapper.insertNewSong(song2);
+//            Artist artist1 = new Artist();
+//            artist1.setName("Bon Iver");
+//            artist1.setBio("Bon Iver is an American indie folk band founded " +
+//                    "in 2006 by singer-songwriter Justin Vernon.");
+//            artistMapper.insertNewArtist(artist1);
+//
+//            Album album1 = new Album();
+//            album1.setName("Bon Iver Album");
+//            album1.setArtist(artist1);
+//            album1.setYear(2022L);
+//            albumMapper.addAlbum(album1);
+//
+//            Song song1 = new Song();
+//            song1.setName("Minnesota, WI");
+//            song1.setAlbum(album1);
+//            song1.setSongLength(232);
+//            album1.setSongs(new ArrayList<>(Collections.singletonList(song1)));
+//
+//            Artist artist2 = new Artist();
+//            artist2.setName("Gus Dapperton");
+//            artist2.setBio("Brendan Patrick Rice, better known by his stage name Gus Dapperton, " +
+//                    "is an American singer and songwriter from Warwick, New York.");
+//            artistMapper.insertNewArtist(artist2);
+//
+//            Album album2 = new Album();
+//            album2.setName("Gus Dapperton Album");
+//            album2.setArtist(artist2);
+//            album2.setYear(2020L);
+//            albumMapper.addAlbum(album2);
+//
+//            Song song2 = new Song();
+//            song2.setName("Post Humorous");
+//            song2.setAlbum(album2);
+//            song2.setSongLength(279);
+//            album2.setSongs(new ArrayList<>(Collections.singletonList(song2)));
+//
+//            songMapper.insertNewSong(song1);
+//            songMapper.insertNewSong(song2);
 
             Song song3 = songMapper.getSongById(1L);
             System.out.println(song3.toString());
 
-            Artist artist3 = artistMapper.getArtistByIdWithAlbums(1L);
+            Artist artist3 = artistMapper.getArtistByIdWithAlbums(3L);
             System.out.println(artist3.toString());
             System.out.println(artist3.getAlbums());
         };
