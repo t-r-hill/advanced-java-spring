@@ -74,6 +74,10 @@ public class QueryDSLDemo implements CommandLineRunner {
                 .fetchOne();
         System.out.println(area);
 
+        List<Area> bAreas = query.select(qArea)
+                        .from(qArea)
+                                .where(qArea.name.eq("B")).fetch();
+
         routeRepository.deleteAll();
         areaRepository.deleteAll();
     }

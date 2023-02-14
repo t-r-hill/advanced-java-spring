@@ -48,6 +48,6 @@ public class MyBatisExampleApplication implements CommandLineRunner {
         sectionMapper.insertNewSection(mySection);
 
         Chapter myChapter = new Chapter();
-        myChapter.setName();
+        myChapter.setName("My Chapter");
     }
 }
