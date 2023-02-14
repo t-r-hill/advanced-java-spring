@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -11,7 +12,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Table(name = "routes")
-@Builder
 @ToString
 public class Route implements Serializable {
 
@@ -24,7 +24,7 @@ public class Route implements Serializable {
     @Column(unique = true)
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(
             name = "origin_area_id",
             nullable = false,
@@ -32,11 +32,21 @@ public class Route implements Serializable {
     )
     private Area origin;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(
             name = "destination_area_id",
             nullable = false,
             foreignKey = @ForeignKey(name = "fk_routes_destination_area_id")
     )
     private Area destination;
+
+    @Builder
+    public Route(Area origin, Area destination){
+        this.origin = origin;
+        this.destination = destination;
+        this.code = origin.getCode().concat("-").concat(destination.getCode());
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "route")
+    private List<Checkpoint> checkpoints;
 }
