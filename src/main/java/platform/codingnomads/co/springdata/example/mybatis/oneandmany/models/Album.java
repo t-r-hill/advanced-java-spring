@@ -1,21 +1,25 @@
 package platform.codingnomads.co.springdata.example.mybatis.oneandmany.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
-@ToString(exclude = "songs")
-public class Artist {
+@AllArgsConstructor
+@ToString
+public class Album {
 
-    private Long id;
+    private long id;
 
     private String name;
 
-    private String bio;
+    private long year;
 
-    private ArrayList<Album> albums;
+    private Artist artist;
+
+    private List<Song> songs;
 }

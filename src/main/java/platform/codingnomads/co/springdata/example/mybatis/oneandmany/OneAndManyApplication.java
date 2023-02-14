@@ -4,8 +4,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import platform.codingnomads.co.springdata.example.mybatis.oneandmany.mappers.AlbumMapper;
 import platform.codingnomads.co.springdata.example.mybatis.oneandmany.mappers.ArtistMapper;
 import platform.codingnomads.co.springdata.example.mybatis.oneandmany.mappers.SongMapper;
+import platform.codingnomads.co.springdata.example.mybatis.oneandmany.models.Album;
 import platform.codingnomads.co.springdata.example.mybatis.oneandmany.models.Artist;
 import platform.codingnomads.co.springdata.example.mybatis.oneandmany.models.Song;
 
@@ -31,7 +33,7 @@ public class OneAndManyApplication {
     }
 
     @Bean
-    public CommandLineRunner loadInitialData(SongMapper songMapper, ArtistMapper artistMapper) {
+    public CommandLineRunner loadInitialData(SongMapper songMapper, ArtistMapper artistMapper, AlbumMapper albumMapper) {
         return (args) -> {
 
             Artist artist1 = new Artist();
@@ -40,12 +42,17 @@ public class OneAndManyApplication {
                     "in 2006 by singer-songwriter Justin Vernon.");
             artistMapper.insertNewArtist(artist1);
 
+            Album album1 = new Album();
+            album1.setName("Bon Iver Album");
+            album1.setArtist(artist1);
+            album1.setYear(2022L);
+            albumMapper.addAlbum(album1);
+
             Song song1 = new Song();
             song1.setName("Minnesota, WI");
-            song1.setAlbumName("Bon Iver");
-            song1.setArtist(artist1);
+            song1.setAlbum(album1);
             song1.setSongLength(232);
-            artist1.setSongs(new ArrayList<>(Collections.singletonList(song1)));
+            album1.setSongs(new ArrayList<>(Collections.singletonList(song1)));
 
             Artist artist2 = new Artist();
             artist2.setName("Gus Dapperton");
@@ -53,12 +60,17 @@ public class OneAndManyApplication {
                     "is an American singer and songwriter from Warwick, New York.");
             artistMapper.insertNewArtist(artist2);
 
+            Album album2 = new Album();
+            album2.setName("Gus Dapperton Album");
+            album2.setArtist(artist2);
+            album2.setYear(2020L);
+            albumMapper.addAlbum(album2);
+
             Song song2 = new Song();
             song2.setName("Post Humorous");
-            song2.setAlbumName("Orca");
-            song2.setArtist(artist2);
+            song2.setAlbum(album2);
             song2.setSongLength(279);
-            artist2.setSongs(new ArrayList<>(Collections.singletonList(song2)));
+            album2.setSongs(new ArrayList<>(Collections.singletonList(song2)));
 
             songMapper.insertNewSong(song1);
             songMapper.insertNewSong(song2);
@@ -66,9 +78,9 @@ public class OneAndManyApplication {
             Song song3 = songMapper.getSongById(1L);
             System.out.println(song3.toString());
 
-            Artist artist3 = artistMapper.getArtistByIdWithSongs(1L);
+            Artist artist3 = artistMapper.getArtistByIdWithAlbums(1L);
             System.out.println(artist3.toString());
-            System.out.println(artist3.getSongs());
+            System.out.println(artist3.getAlbums());
         };
     }
 }
