@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import platform.codingnomads.co.springweb.resttemplate.GET.models.ActivityTemplate;
 import platform.codingnomads.co.springweb.resttemplate.GET.models.QuoteTemplate;
 
 import java.util.Arrays;
@@ -30,7 +31,12 @@ public class GetForObjectDemo {
             System.out.println(Arrays.toString(randomQuote));
 
             // submit more requests here
-            
+
+            ActivityTemplate randomActivity;
+            randomActivity = restTemplate.getForObject("http://www.boredapi.com/api/activity/", ActivityTemplate.class);
+            System.out.println(randomActivity);
+
+
 //            CodingNomadsTasksApiResponse response =
 //                    restTemplate.getForObject("http://demo.codingnomads.co:8080/tasks_api/users/5",
 //                            CodingNomadsTasksApiResponse.class);
