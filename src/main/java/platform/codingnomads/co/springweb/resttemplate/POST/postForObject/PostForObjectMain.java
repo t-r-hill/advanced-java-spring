@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import platform.codingnomads.co.springweb.resttemplate.POST.models.ResponseObject;
 import platform.codingnomads.co.springweb.resttemplate.POST.models.Task;
+import platform.codingnomads.co.springweb.resttemplate.POST.models.User;
+import platform.codingnomads.co.springweb.resttemplate.POST.models.UserResponseObject;
 
 @SpringBootApplication
 public class PostForObjectMain {
@@ -37,6 +39,22 @@ public class PostForObjectMain {
             if (taskReturnedByServerAfterPost != null) {
                 System.out.println(taskReturnedByServerAfterPost.toString());
             }
+
+            User newUser = User.builder()
+                    .email("elon.musk@twitter.com")
+                    .first_name("elon")
+                    .last_name("musk")
+                    .build();
+
+            UserResponseObject userReturnedFromPost = restTemplate.postForObject(
+                    "http://demo.codingnomads.co:8080/tasks_api/users",
+                    newUser,
+                    UserResponseObject.class
+            );
+
+            assert userReturnedFromPost != null;
+
+            System.out.println(userReturnedFromPost.toString());
         };
     }
 }

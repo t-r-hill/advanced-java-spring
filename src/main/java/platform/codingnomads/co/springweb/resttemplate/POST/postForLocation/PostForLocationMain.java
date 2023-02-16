@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import platform.codingnomads.co.springweb.resttemplate.POST.models.ResponseObject;
 import platform.codingnomads.co.springweb.resttemplate.POST.models.Task;
+import platform.codingnomads.co.springweb.resttemplate.POST.models.User;
+import platform.codingnomads.co.springweb.resttemplate.POST.models.UserResponseObject;
 
 import java.net.URI;
 import java.util.Objects;
@@ -44,6 +46,24 @@ public class PostForLocationMain {
                     .postForEntity("http://demo.codingnomads.co:8080/tasks_api/tasks", newTask, ResponseObject.class);
 
             System.out.println(responseEntity.getHeaders().get("Location"));
+
+            User newUser = User.builder()
+                    .email("reallyNotTheReal@SlimShady.com")
+                    .first_name("Marshall")
+                    .last_name("Mathers")
+                    .build();
+
+            URI userLocation = restTemplate.postForLocation(
+                    "http://demo.codingnomads.co:8080/tasks_api/users",
+                    newUser,
+                    UserResponseObject.class);
+
+            assert userLocation != null;
+
+            UserResponseObject createdUser = restTemplate.getForObject("http://demo.codingnomads.co:8080/tasks_api".concat(userLocation.getPath()), UserResponseObject.class);
+
+            assert createdUser != null;
+            System.out.println(createdUser.getData());
         };
     }
 }
