@@ -8,10 +8,13 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import platform.codingnomads.co.springweb.resttemplate.PUT.models.User;
 import platform.codingnomads.co.springweb.resttemplate.PUT.models.ResponseObject;
 import platform.codingnomads.co.springweb.resttemplate.PUT.models.Task;
+import platform.codingnomads.co.springweb.resttemplate.PUT.models.UserResponseObject;
 
 @SpringBootApplication
 public class PutMain {
@@ -28,7 +31,7 @@ public class PutMain {
         return args -> {
 
             //use a valid task id
-            int taskId = 171;
+            int taskId = 172;
 
             //request Task 5 from server
             ResponseObject responseObject = restTemplate
@@ -66,6 +69,30 @@ public class PutMain {
                     "http://demo.codingnomads.co:8080/tasks_api/tasks/" + taskToUpdate.getId(),
                     HttpMethod.PUT, httpEntity, ResponseObject.class);
             System.out.println(response.toString());
+
+            //LBD
+
+            String userEmail = "donald@trump.com";
+            User userToUpdate;
+
+            ResponseEntity<UserResponseObject> userResponseObjectResponseEntity = restTemplate.getForEntity(
+                    "http://demo.codingnomads.co:8080/tasks_api/users?email=".concat(userEmail),
+                    UserResponseObject.class
+            );
+
+            if (userResponseObjectResponseEntity.getStatusCode().equals(HttpStatus.OK) &
+                userResponseObjectResponseEntity.getBody().getData() != null){
+                userToUpdate = userResponseObjectResponseEntity.getBody().getData()[0];
+            } else{
+                throw new Exception("Couldn't get the user data");
+            }
+
+            userToUpdate.setFirst_name("Donald Jr");
+
+            restTemplate.put("http://demo.codingnomads.co:8080/tasks_api/users/".concat(Long.toString(userToUpdate.getId())),
+                    userToUpdate);
+
+
         };
     }
 }

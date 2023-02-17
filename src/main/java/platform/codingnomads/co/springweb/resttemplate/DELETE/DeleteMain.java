@@ -11,6 +11,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import platform.codingnomads.co.springweb.resttemplate.DELETE.models.ResponseObject;
 import platform.codingnomads.co.springweb.resttemplate.DELETE.models.Task;
+import platform.codingnomads.co.springweb.resttemplate.DELETE.models.User;
+import platform.codingnomads.co.springweb.resttemplate.DELETE.models.UserResponseObject;
 
 @SpringBootApplication
 public class DeleteMain {
@@ -26,50 +28,70 @@ public class DeleteMain {
     public CommandLineRunner run() throws Exception {
         return args -> {
 
-            Task newTask = Task.builder()
-                    .name("should be deleted")
-                    .description("used in a delete RestTemplate example. If you see this something went wrong. Oops")
-                    //be sure to enter a valid user id
-                    .userId(380)
-                    .completed(false)
+//            Task newTask = Task.builder()
+//                    .name("should be deleted")
+//                    .description("used in a delete RestTemplate example. If you see this something went wrong. Oops")
+//                    //be sure to enter a valid user id
+//                    .userId(380)
+//                    .completed(false)
+//                    .build();
+//
+//            //POST new task to server
+//            ResponseObject responseObject = restTemplate
+//                    .postForObject("http://demo.codingnomads.co:8080/tasks_api/tasks/", newTask, ResponseObject.class);
+//
+//            //confirm data was returned & avoid NullPointerExceptions
+//            if (responseObject == null) {
+//                throw new Exception("The server did not return anything. Not even a ResponseObject!");
+//            } else if (responseObject.getData() == null) {
+//                throw new Exception("The server encountered this error while creating the task:" + responseObject.getError().getMessage());
+//            } else {
+//                newTask = responseObject.getData();
+//            }
+//
+//            System.out.println("The task was successfully created");
+//            System.out.println(newTask);
+//
+//            //delete the newTask using the ID the server returned
+//            restTemplate.delete("http://demo.codingnomads.co:8080/tasks_api/tasks/" + newTask.getId());
+//            System.out.println("The task was also successfully deleted");
+//
+//            //try to GET, verify record was deleted
+//            try {
+//                restTemplate.getForEntity(
+//                        "http://demo.codingnomads.co:8080/tasks_api/tasks/" + newTask.getId(), ResponseObject.class);
+//            } catch (HttpClientErrorException e) {
+//                System.out.println(e.getMessage());
+//            }
+//
+//            //delete using exchange()
+//            HttpEntity<Task> httpEntity = new HttpEntity<>(newTask);
+//            try {
+//                restTemplate.exchange("http://demo.codingnomads.co:8080/tasks_api/tasks/"
+//                        + newTask.getId(), HttpMethod.DELETE, httpEntity, ResponseObject.class);
+//            } catch (HttpClientErrorException e) {
+//                System.out.println(e.getMessage());
+//            }
+
+            User newUser = User.builder()
+                    .email("h.potter@hogwarts.com")
+                    .first_name("Harry")
+                    .last_name("Potter")
                     .build();
 
-            //POST new task to server
-            ResponseObject responseObject = restTemplate
-                    .postForObject("http://demo.codingnomads.co:8080/tasks_api/tasks/", newTask, ResponseObject.class);
+            UserResponseObject userResponseObject = restTemplate.postForObject(
+                    "http://demo.codingnomads.co:8080/tasks_api/users",
+                    newUser,
+                    UserResponseObject.class
+            );
 
-            //confirm data was returned & avoid NullPointerExceptions
-            if (responseObject == null) {
-                throw new Exception("The server did not return anything. Not even a ResponseObject!");
-            } else if (responseObject.getData() == null) {
-                throw new Exception("The server encountered this error while creating the task:" + responseObject.getError().getMessage());
-            } else {
-                newTask = responseObject.getData();
+            if (userResponseObject != null &
+                userResponseObject.getData()  != null){
+                newUser = userResponseObject.getData();
             }
 
-            System.out.println("The task was successfully created");
-            System.out.println(newTask);
+            restTemplate.delete("http://demo.codingnomads.co:8080/tasks_api/users/".concat(Long.toString(newUser.getId())));
 
-            //delete the newTask using the ID the server returned
-            restTemplate.delete("http://demo.codingnomads.co:8080/tasks_api/tasks/" + newTask.getId());
-            System.out.println("The task was also successfully deleted");
-
-            //try to GET, verify record was deleted
-            try {
-                restTemplate.getForEntity(
-                        "http://demo.codingnomads.co:8080/tasks_api/tasks/" + newTask.getId(), ResponseObject.class);
-            } catch (HttpClientErrorException e) {
-                System.out.println(e.getMessage());
-            }
-
-            //delete using exchange()
-            HttpEntity<Task> httpEntity = new HttpEntity<>(newTask);
-            try {
-                restTemplate.exchange("http://demo.codingnomads.co:8080/tasks_api/tasks/"
-                        + newTask.getId(), HttpMethod.DELETE, httpEntity, ResponseObject.class);
-            } catch (HttpClientErrorException e) {
-                System.out.println(e.getMessage());
-            }
         };
     }
 }

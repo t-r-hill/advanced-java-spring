@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
-@ToString(exclude = "songs")
+@ToString(exclude = "albums")
 public class Artist {
 
     private Long id;
