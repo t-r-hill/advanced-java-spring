@@ -48,4 +48,18 @@ public class TaskController {
             return ResponseEntity.ok().body(message);
         }
     }
+
+    @PostMapping(value = "/api/tasks/create-edited-task")
+    public ResponseEntity<Task> createEditedTask(@RequestBody Task task) throws URISyntaxException {
+        if (task.getCompleted() == null | task.getName().isEmpty()){
+            return ResponseEntity.badRequest().body(task);
+        }
+        
+        Task savedTask = taskRepository.save(Task.builder()
+                .name(task.getName() + "_edited")
+                .completed(!task.getCompleted())
+                .build());
+
+        return ResponseEntity.created(new URI("/api/tasks/" + savedTask.getId())).body(savedTask);
+    }
 }
