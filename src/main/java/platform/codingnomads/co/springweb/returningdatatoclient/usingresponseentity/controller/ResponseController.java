@@ -38,4 +38,9 @@ public class ResponseController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping(value = "/practice")
+    public ResponseEntity<?> getGenericObject(){
+        return ResponseEntity.ok().body(user);
+    }
 }

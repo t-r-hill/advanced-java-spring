@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import platform.codingnomads.co.springweb.returningdatatoclient.responsebody.model.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @Controller
 public class UserController {
 
@@ -16,6 +20,15 @@ public class UserController {
             .name("Spring Dev")
             .email("dev@codingnomads.co")
             .build();
+
+    List<User> userList = IntStream
+            .range(0,5)
+            .mapToObj(x -> User.builder()
+                    .id(x)
+                    .name("user" + x)
+                    .email("user" + x + "@codingnomads.co")
+                    .build())
+            .collect(Collectors.toList());
 
     //using ResponseBody to return a POJO
     @ResponseBody
@@ -34,6 +47,11 @@ public class UserController {
     @GetMapping("/user")
     public User user() {
         return user;
+    }
+
+    @GetMapping(value = "/user-list")
+    public ResponseEntity<List<User>> getUserList(){
+        return ResponseEntity.ok().body(userList);
     }
 
 }
