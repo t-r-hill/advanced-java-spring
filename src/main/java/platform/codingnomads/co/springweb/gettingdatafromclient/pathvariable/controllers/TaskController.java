@@ -48,5 +48,15 @@ public class TaskController {
     public String pathVariableIsNotEncoded(@PathVariable String name) {
         return name;
     }
+
+    @GetMapping(value = {"/required-param/{var1}/optional-param/{var2}", "/required-param/{var1}"})
+    public String getParams(@PathVariable String var1,
+                            @PathVariable(required = false) String var2){
+        if (var2 != null){
+            return "There's two params :) var1 = " + var1 + " & var2 = " + var2;
+        } else{
+            return "There's only one param :( var1 = " + var1;
+        }
+    }
 }
 

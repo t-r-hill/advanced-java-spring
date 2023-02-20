@@ -5,7 +5,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import platform.codingnomads.co.springweb.gettingdatafromclient.requestparam.models.Task;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -43,5 +45,16 @@ public class TaskController {
         return IntStream.range(0, names.size())
                 .mapToObj(i -> Task.builder().id((long) i).name(names.get(i)).build())
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/request-with-multiple-params")
+    public Map<String, String> getRequestWithMultipleParams(@RequestParam(name = "var1") String var1,
+                                                            @RequestParam(name = "var2") Integer var2,
+                                                            @RequestParam String var3){
+        Map<String,String> returnMap = new HashMap<>();
+        returnMap.put("var1", var1);
+        returnMap.put("var2", Integer.toString(var2));
+        returnMap.put("var3", var3);
+        return returnMap;
     }
 }
