@@ -9,7 +9,9 @@ import platform.codingnomads.co.springweb.wrappingup.multipartdata.models.FileRe
 import platform.codingnomads.co.springweb.wrappingup.multipartdata.repositories.DatabaseFileRepository;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -39,6 +41,17 @@ public class FileService {
         databaseFile.setFileType(multipartFile.getContentType());
         final DatabaseFile savedFile = fileRepository.save(databaseFile);
         return buildFileResponseFromDatabaseFile(savedFile);
+    }
+
+    public FileResponse updateFileName(Long fileId, String newName) throws IOException {
+        DatabaseFile databaseFile = getFile(fileId);
+        DatabaseFile newFile = DatabaseFile.builder()
+                .fileName(newName)
+                .fileType(databaseFile.getFileType())
+                .data(databaseFile.getData())
+                .size(databaseFile.getSize()).build();
+        newFile = fileRepository.save(newFile);
+        return buildFileResponseFromDatabaseFile(newFile);
     }
 
     public void deleteFile(Long fileId) {
@@ -76,5 +89,16 @@ public class FileService {
                 .fileType(databaseFile.getFileType())
                 .size(databaseFile.getSize())
                 .build();
+    }
+
+    public List<FileResponse> findFilesByName(String searchTerm){
+        List<DatabaseFile> files = fileRepository.getByFileNameContaining(searchTerm);
+        List<FileResponse> fileResponses;
+        if (files.isEmpty()){
+            return null;
+        } else{
+            fileResponses = files.stream().map(this::buildFileResponseFromDatabaseFile).collect(Collectors.toList());
+        }
+        return fileResponses;
     }
 }

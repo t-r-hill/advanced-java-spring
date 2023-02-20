@@ -14,12 +14,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import platform.codingnomads.co.springtest.TestUtil;
-import platform.codingnomads.co.springtest.testingjsonresponsecontent.RecipeMain;
-import platform.codingnomads.co.springtest.testingjsonresponsecontent.models.Ingredient;
-import platform.codingnomads.co.springtest.testingjsonresponsecontent.models.Recipe;
-import platform.codingnomads.co.springtest.testingjsonresponsecontent.models.Review;
-import platform.codingnomads.co.springtest.testingjsonresponsecontent.models.Step;
-import platform.codingnomads.co.springtest.testingjsonresponsecontent.repositories.RecipeRepo;
+import platform.codingnomads.co.springdata.springtest.testingjsonresponsecontent.RecipeMain;
+import platform.codingnomads.co.springdata.springtest.testingjsonresponsecontent.models.Ingredient;
+import platform.codingnomads.co.springdata.springtest.testingjsonresponsecontent.models.Recipe;
+import platform.codingnomads.co.springdata.springtest.testingjsonresponsecontent.models.Review;
+import platform.codingnomads.co.springdata.springtest.testingjsonresponsecontent.models.Step;
+import platform.codingnomads.co.springdata.springtest.testingjsonresponsecontent.repositories.RecipeRepo;
 
 import java.util.Set;
 

@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import platform.codingnomads.co.springweb.wrappingup.multipartdata.models.DatabaseFile;
+import platform.codingnomads.co.springweb.wrappingup.multipartdata.models.FileResponse;
 import platform.codingnomads.co.springweb.wrappingup.multipartdata.services.FileService;
 
 import java.nio.file.NoSuchFileException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -69,6 +71,31 @@ public class FileController {
         } else {
             fileService.deleteFile(fileId);
             return ResponseEntity.ok("File with ID " + fileId + " was deleted.");
+        }
+    }
+
+    @GetMapping("/search-file/{name}")
+    public ResponseEntity<?> searchFileByName(@PathVariable String name){
+        if (fileService.findFilesByName(name) == null){
+            return  ResponseEntity.badRequest().body(new NoSuchFileException("No files containing '" + name + "' could be found"));
+        } else{
+            return ResponseEntity.ok().body(fileService.findFilesByName(name));
+        }
+    }
+
+    @PutMapping("/duplicate-file/{id}/{new-name}")
+    public ResponseEntity<?> duplicateFile(@PathVariable(name = "new-name") String newName,
+                                           @PathVariable Long id){
+        if (fileService.fileDoesNotExist(id)) {
+            return ResponseEntity.badRequest()
+                    .body(new NoSuchFileException("The ID you passed in was not valid. Where you trying to upload a new file?"));
+        } else {
+            try {
+                return ResponseEntity.ok(fileService.updateFileName(id, newName));
+            } catch (Exception ex) {
+                return ResponseEntity.badRequest()
+                        .body(ex.getMessage());
+            }
         }
     }
 }

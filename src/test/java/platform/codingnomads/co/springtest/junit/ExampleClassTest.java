@@ -2,6 +2,7 @@ package platform.codingnomads.co.springtest.junit;
 
 
 import org.junit.jupiter.api.Test;
+import platform.codingnomads.co.springdata.springtest.junit.ExampleClass;
 
 import static org.junit.jupiter.api.Assertions.*;
 

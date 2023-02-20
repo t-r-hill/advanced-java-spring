@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import platform.codingnomads.co.springtest.mockingmethods.RecipeMain;
-import platform.codingnomads.co.springtest.mockingmethods.exceptions.NoSuchRecipeException;
-import platform.codingnomads.co.springtest.mockingmethods.models.Ingredient;
-import platform.codingnomads.co.springtest.mockingmethods.models.Recipe;
-import platform.codingnomads.co.springtest.mockingmethods.models.Step;
-import platform.codingnomads.co.springtest.mockingmethods.repositories.RecipeRepo;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.RecipeMain;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.exceptions.NoSuchRecipeException;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Ingredient;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Recipe;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Step;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.repositories.RecipeRepo;
+import platform.codingnomads.co.springdata.springtest.mockingmethods.services.RecipeService;
 
 import java.util.*;
 
