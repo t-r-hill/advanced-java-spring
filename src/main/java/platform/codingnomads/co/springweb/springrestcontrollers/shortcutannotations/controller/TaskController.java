@@ -38,11 +38,7 @@ public class TaskController {
 
         Optional<Task> taskToReturn = taskRepository.findById(id);
 
-        if (taskToReturn.isPresent()) {
-            return ResponseEntity.ok().body(taskToReturn.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        return taskToReturn.map(task -> ResponseEntity.ok().body(task)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @GetMapping
@@ -57,5 +53,17 @@ public class TaskController {
         }
         taskRepository.deleteById(id);
         return ResponseEntity.ok().body(id);
+    }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Task> updateTask(@RequestBody Task task) throws URISyntaxException {
+        if (!StringUtils.hasText(task.getName()) || task.getId() != null) {
+            throw new IllegalStateException();
+        }
+
+        Task updatedTask = taskRepository.save(task);
+
+        return ResponseEntity.created(new URI("/api/tasks/" + updatedTask.getId()))
+                .body(updatedTask);
     }
 }

@@ -25,4 +25,14 @@ public class ConversionController {
     public String returnTheString() {
         return text;
     }
+
+    @RequestMapping(path = "/backwards", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String backwards(){
+        String txet = "";
+        for (int i=text.length()-1;i >= 0; i--){
+            char ch = text.charAt(i);
+            txet += ch;
+        }
+        return txet;
+    }
 }
