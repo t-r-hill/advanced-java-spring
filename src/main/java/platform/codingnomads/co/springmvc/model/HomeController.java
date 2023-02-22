@@ -18,6 +18,9 @@ public class HomeController {
         model.addAttribute("name", "Developer");
         model.addAttribute("language", "Java");
         model.addAttribute("framework", "Spring");
+        model.addAttribute("colour", "red");
+        model.addAttribute("number", "ten");
+        model.addAttribute("cake", "chocolate");
         return "model-page";
     }
 
