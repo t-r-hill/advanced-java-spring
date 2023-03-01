@@ -21,7 +21,7 @@ public interface ChapterMapper {
                     property = "lessons",
                     javaType = List.class,
                     many = @Many(
-                            select = "com.bensiegler.mappers.LessonMapper.getLessonByChapterId",
+                            select = "platform.codingnomads.co.springdata.example.mybatis.extraexample.mappers.LessonMapper.getLessonByChapterId",
                             fetchType = FetchType.LAZY
                     )
             )
@@ -35,7 +35,7 @@ public interface ChapterMapper {
                     property = "lessons",
                     javaType = List.class,
                     many = @Many(
-                            select = "com.bensiegler.mappers.LessonMapper.getLessonByChapterId",
+                            select = "platform.codingnomads.co.springdata.example.mybatis.extraexample.mappers.LessonMapper.getLessonByChapterId",
                             fetchType = FetchType.LAZY
                     )
             )
