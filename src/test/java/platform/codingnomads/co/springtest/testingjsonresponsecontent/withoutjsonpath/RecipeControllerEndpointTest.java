@@ -13,12 +13,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import platform.codingnomads.co.springtest.TestUtil;
-import platform.codingnomads.co.springdata.springtest.mockingmethods.RecipeMain;
-import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Ingredient;
-import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Recipe;
-import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Review;
-import platform.codingnomads.co.springdata.springtest.mockingmethods.models.Step;
-import platform.codingnomads.co.springdata.springtest.mockingmethods.repositories.RecipeRepo;
+import platform.codingnomads.co.springtest.mockingmethods.RecipeMain;
+import platform.codingnomads.co.springtest.mockingmethods.models.Ingredient;
+import platform.codingnomads.co.springtest.mockingmethods.models.Recipe;
+import platform.codingnomads.co.springtest.mockingmethods.models.Review;
+import platform.codingnomads.co.springtest.mockingmethods.models.Step;
+import platform.codingnomads.co.springtest.mockingmethods.repositories.RecipeRepo;
 
 import java.util.ArrayList;
 import java.util.Set;

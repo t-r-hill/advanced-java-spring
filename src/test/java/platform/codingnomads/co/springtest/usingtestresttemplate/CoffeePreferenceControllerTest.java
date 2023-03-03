@@ -1,12 +1,13 @@
 package platform.codingnomads.co.springtest.usingtestresttemplate;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import platform.codingnomads.co.springdata.springtest.usingtestresttemplate.UsingTestRestTemplateMain;
-import platform.codingnomads.co.springdata.springtest.usingtestresttemplate.models.CoffeePreference;
+import platform.codingnomads.co.springtest.usingtestresttemplate.models.CoffeePreference;
 
 import java.util.Objects;
 
@@ -40,5 +41,15 @@ public class CoffeePreferenceControllerTest {
 
         //confirm ID was assigned
         assertThat(Objects.requireNonNull(postedCoffeePreference.getBody()).getId()).isNotNull();
+    }
+
+    @Test
+    public void testGetCoffeePreference(){
+        long id = 1;
+        ResponseEntity<CoffeePreference> responseEntity = testRestTemplate.getForEntity("/coffee/" + id, CoffeePreference.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isNotNull();
+        assertThat(responseEntity.getBody().getId()).isEqualTo(1);
     }
 }
