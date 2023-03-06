@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{authorization/fragments/layout}">
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1>Spring Security Demo</h1>
+    <p>This is the home page. All authenticated users can access this page</p>
+    <div>
+        <p th:text="'This is the bean page for the ' + ${bean.colour} + ' bean'">This is the bean page</p>
+        <p th:text="'This is for user: ' + ${bean.user}">User</p>
+        <p th:text="'This is ofr role: ' + ${bean.role}">Role</p>
+    </div>
+</div>
+</body>
+</html>

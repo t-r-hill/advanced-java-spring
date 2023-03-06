@@ -3,12 +3,17 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{authorization/fragments/layout}">
 <head>
-    <title>Superusers only</title>
+    <title>Home Page</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
     <h1>Spring Security Demo</h1>
-    <p>This is for superusers only. We are 1331</p>
+    <p>This is the home page. All authenticated users can access this page</p>
+    <div>
+        <ul >
+            <li th:each="bean:${beans}"><a th:text="${bean.colour}" th:href="@{'/bean/' + ${bean.colour}}">Bean colour<a/></li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

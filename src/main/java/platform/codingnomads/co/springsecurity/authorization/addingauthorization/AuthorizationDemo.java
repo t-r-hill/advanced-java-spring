@@ -5,11 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import platform.codingnomads.co.springsecurity.authorization.addingauthorization.models.Authority;
-import platform.codingnomads.co.springsecurity.authorization.addingauthorization.models.AuthorityEnum;
-import platform.codingnomads.co.springsecurity.authorization.addingauthorization.models.UserMeta;
-import platform.codingnomads.co.springsecurity.authorization.addingauthorization.models.UserPrincipal;
+import platform.codingnomads.co.springsecurity.authorization.addingauthorization.models.*;
 import platform.codingnomads.co.springsecurity.authorization.addingauthorization.repositories.AuthorityRepo;
+import platform.codingnomads.co.springsecurity.authorization.addingauthorization.repositories.MagicBeanRepo;
 import platform.codingnomads.co.springsecurity.authorization.addingauthorization.repositories.UserPrincipalRepo;
 
 import java.util.Arrays;
@@ -23,6 +21,9 @@ public class AuthorizationDemo implements CommandLineRunner {
 
     @Autowired
     private UserPrincipalRepo userPrincipalRepo;
+
+    @Autowired
+    private MagicBeanRepo magicBeanRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -57,6 +58,17 @@ public class AuthorizationDemo implements CommandLineRunner {
                             new UserPrincipal("ADMIN", passwordEncoder.encode("admin"),
                                     Arrays.asList(adminAuth, userAuth), admin)
                     )
+            );
+        }
+
+        MagicBean userBean = MagicBean.builder().user("USER").role("USER").colour("GREEN").build();
+        MagicBean adminBean = MagicBean.builder().user("ADMIN").role("ADMIN").colour("RED").build();
+        MagicBean superuBean = MagicBean.builder().user("SUPERUSER").role("SUPERU").colour("BLUE").build();
+        MagicBean purpleBean = MagicBean.builder().user("USER").role("USER").colour("PURPLE").build();
+
+        if (magicBeanRepo.findAll().isEmpty()) {
+            magicBeanRepo.saveAll(
+                    Arrays.asList(userBean,adminBean,superuBean, purpleBean)
             );
         }
     }
