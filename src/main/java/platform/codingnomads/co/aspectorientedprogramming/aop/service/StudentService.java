@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import platform.codingnomads.co.aspectorientedprogramming.aop.aspect.Loggable;
 import platform.codingnomads.co.aspectorientedprogramming.aop.aspect.TrackMethodExecutionTime;
+import platform.codingnomads.co.aspectorientedprogramming.aop.aspect.WarmUp;
 import platform.codingnomads.co.aspectorientedprogramming.aop.model.Student;
 import platform.codingnomads.co.aspectorientedprogramming.aop.repository.StudentRepository;
 
@@ -27,6 +28,7 @@ public class StudentService {
         return studentRepository.saveAll(students);
     }
 
+    @WarmUp
     public Student saveStudent(Student student){
         return studentRepository.save(student);
     }

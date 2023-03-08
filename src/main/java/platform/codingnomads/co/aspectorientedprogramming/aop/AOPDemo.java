@@ -24,13 +24,13 @@ public class AOPDemo implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        studentService.saveAllStudents(Arrays.asList(
-                Student.builder().email("student1@example.com").name("student1").build(),
-                Student.builder().email("student2@example.com").name("student2").build(),
-                Student.builder().email("student3@example.com").name("student3").build()
-        ));
-
-        studentService.fetchAllStudents();
+//        studentService.saveAllStudents(Arrays.asList(
+//                Student.builder().email("student1@example.com").name("student1").build(),
+//                Student.builder().email("student2@example.com").name("student2").build(),
+//                Student.builder().email("student3@example.com").name("student3").build()
+//        ));
+//
+//        studentService.fetchAllStudents();
 
         studentService.saveStudent(new Student("Example Student", "example@student.com"));
     }
