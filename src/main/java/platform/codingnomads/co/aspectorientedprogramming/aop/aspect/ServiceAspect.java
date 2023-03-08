@@ -15,6 +15,19 @@ public class ServiceAspect {
     @Pointcut(value = "execution(* platform.codingnomads.co.aspectorientedprogramming.aop.service.StudentService.*(..))")
     private void logAllStudentServiceMethods() { }
 
+    @Pointcut(value = "execution(* platform.codingnomads.co.aspectorientedprogramming.aop.service.StudentService.saveStudent(..))")
+    private void logSaveStudent(){}
+
+    @Before("logSaveStudent()")
+    public void logBeforeSaveStudent(JoinPoint joinPoint){
+        LOGGER.info("Before saving student");
+    }
+
+    @AfterReturning(value = "logSaveStudent()", returning = "student")
+    public void logBeforeSaveStudent(JoinPoint joinPoint, Object student){
+        LOGGER.info("After saving student: " + student.toString());
+    }
+
     @Before("logAllStudentServiceMethods()")
     public void logBeforeAdvice(JoinPoint joinPoint) {
         LOGGER.info("Before Advice : " + joinPoint.getSignature().getName());
